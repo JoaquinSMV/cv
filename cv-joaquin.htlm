@@ -1,0 +1,400 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CV Joaquín Salvador Martín | Developer - MATRIX RETRO</title>
+    <!-- Carga de Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        /* Tipografía Monospace para simular una terminal */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto+Mono:wght@400;700&display=swap');
+        
+        :root {
+            --matrix-green: #00ff41; /* El verde brillante de Matrix */
+            --background-dark: #000000; /* Fondo negro puro */
+        }
+
+        body {
+            font-family: 'Roboto Mono', monospace;
+            background-color: var(--background-dark);
+            color: var(--matrix-green); /* Texto verde */
+            line-height: 1.5;
+            overflow-x: hidden; /* Evita scroll horizontal */
+        }
+
+        /* Contenedor principal del CV */
+        #cv-container {
+            position: relative;
+            z-index: 10; /* Asegura que el contenido esté sobre el fondo de Matrix */
+            background-color: rgba(0, 0, 0, 0.85); /* Fondo semitransparente oscuro para la legibilidad */
+            box-shadow: 0 0 20px var(--matrix-green); /* Resplandor verde */
+            border: 1px solid var(--matrix-green); /* Borde sutil */
+        }
+
+        /* Clase para el título de sección con la línea de acento */
+        .section-title-line {
+            position: relative;
+            padding-bottom: 0.5rem;
+            margin-bottom: 1.5rem;
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--matrix-green);
+            /* Borde inferior con resplandor sutil */
+            border-bottom: 1px solid rgba(0, 255, 65, 0.3); 
+            text-shadow: 0 0 5px rgba(0, 255, 65, 0.5); 
+        }
+
+        .section-title-line::after {
+            content: '';
+            position: absolute;
+            left: 0;
+            bottom: -1px;
+            width: 40px;
+            height: 1px;
+            background-color: var(--matrix-green);
+            box-shadow: 0 0 5px var(--matrix-green);
+        }
+        
+        /* Estilos de elementos interactivos (botones, enlaces) */
+        a {
+            color: var(--matrix-green);
+            transition: color 0.3s, text-shadow 0.3s;
+            text-decoration: underline;
+            text-underline-offset: 3px;
+        }
+
+        a:hover {
+            color: #ffffff;
+            text-shadow: 0 0 10px var(--matrix-green);
+        }
+        
+        .contact-icon {
+            color: var(--matrix-green);
+            text-shadow: 0 0 3px rgba(0, 255, 65, 0.5);
+        }
+
+        /* Tarjetas de experiencia y formación */
+        .data-card {
+            background-color: rgba(0, 50, 0, 0.3); /* Fondo oscuro transparente sutil */
+            border-left: 3px solid var(--matrix-green);
+            transition: background-color 0.3s;
+        }
+        .data-card:hover {
+            background-color: rgba(0, 100, 0, 0.5);
+        }
+
+        /* Estilo para las etiquetas de lenguajes */
+        .tag {
+            background-color: rgba(0, 255, 65, 0.2);
+            color: var(--matrix-green);
+            border: 1px solid rgba(0, 255, 65, 0.4);
+            text-shadow: none;
+        }
+
+        /* Canvas de Matrix */
+        #matrixCanvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 5; /* Detrás del CV */
+            opacity: 0.5; /* Suaviza el efecto */
+        }
+    </style>
+</head>
+<body class="p-4 sm:p-8">
+
+    <!-- CAPA DE ANIMACIÓN MATRIX -->
+    <canvas id="matrixCanvas"></canvas>
+
+    <div id="cv-container" class="max-w-6xl mx-auto rounded-xl shadow-2xl overflow-hidden">
+
+        <!-- CABECERA PRINCIPAL (NOMBRE, PERFIL, CONTACTO) -->
+        <header class="p-6 sm:p-10 bg-black flex flex-col md:flex-row items-center md:items-start space-y-6 md:space-y-0 md:space-x-10 border-b border-primary-color">
+            
+            <!-- FOTO DE PERFIL -->
+            <!-- CORRECCIÓN: Usamos un marcador de posición que garantiza la carga, tematizado como Matrix. -->
+            <img src="https://placehold.co/128x128/000/00ff41?text=JS-DEV" 
+                 alt="Foto de Perfil de Joaquín Salvador Martín (Placeholder)" 
+                 class="w-24 h-24 sm:w-32 sm:h-32 rounded-full border-4 border-matrix-green shrink-0 object-cover shadow-lg shadow-matrix-green/50">
+            
+            <!-- Información Personal y Perfil -->
+            <div class="text-center md:text-left flex-grow">
+                <h1 class="text-4xl sm:text-5xl font-extrabold tracking-tight text-white/90 text-shadow-matrix-green">
+                    JOAQUÍN SALVADOR MARTÍN
+                </h1>
+                <h2 class="text-xl sm:text-2xl font-light mt-1 text-matrix-green text-shadow-matrix-green">
+                    > Estudiante de DAM - Backend & Software Developer
+                </h2>
+                
+                <p class="mt-4 text-matrix-green/80 max-w-3xl text-sm">
+                    Estudiante de Desarrollo de Aplicaciones Multiplataforma en último año, en búsqueda de
+                    empresa para realizar las prácticas FCT obligatorias y con la motivación de crecer
+                    dentro del sector y tener opción de continuidad laboral. Con buena base en Java, C#, y
+                    fundamentos de backend, además de conocimientos en SQL, Git y desarrollo web.
+                </p>
+
+                <!-- Iconos de Contacto -->
+                <div class="mt-4 flex flex-wrap justify-center md:justify-start gap-4 text-sm text-matrix-green">
+                    <div class="flex items-center space-x-1">
+                        <!-- Icono de ubicación -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        <span>Huelva, 17007</span>
+                    </div>
+                    <a href="mailto:joaquinity@gmail.com" class="flex items-center space-x-1 hover:text-white transition">
+                        <!-- Icono de correo -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        <span>joaquinity@gmail.com</span>
+                    </a>
+                    <a href="tel:643463467" class="flex items-center space-x-1 hover:text-white transition">
+                        <!-- Icono de teléfono -->
+                        <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 contact-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-7.05-7.05A19.79 19.79 0 0 1 2 4.18A2 2 0 0 1 4.08 2h3a2 2 0 0 1 2 1.72a12.84 12.84 0 0 0 .7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45a12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+                        <span>643 463 467</span>
+                    </a>
+                </div>
+            </div>
+
+            <!-- Enlaces Sociales -->
+            <div class="flex flex-col space-y-2 text-sm">
+                <!-- CORRECCIÓN FINAL: Usando la URL SIN acentos, que es la forma estándar y que funciona. -->
+                <a href="https://www.linkedin.com/in/joaquin-salvador-martin-8a6aa3201" target="_blank" class="px-3 py-1 bg-matrix-green/20 text-matrix-green rounded-md hover:bg-matrix-green/40 transition flex items-center tag">
+                    <!-- Icono de LinkedIn -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2a2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6zM2 9h4v12H2zm5-4a2 2 0 1 1-4 0a2 2 0 0 1 4 0z"/></svg>
+                    LinkedIn
+                </a>
+                <a href="https://github.com/JoaquinSMV" target="_blank" class="px-3 py-1 bg-white/10 text-white/90 rounded-md hover:bg-white/30 transition flex items-center tag">
+                    <!-- Icono de GitHub -->
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-4 w-4 mr-2" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2C6.477 2 2 6.484 2 12.017c0 4.417 2.865 8.165 6.839 9.504c.47.087.653-.205.653-.454c0-.226-.008-.827-.012-1.637c-2.782.604-3.368-1.341-3.368-1.341c-.454-1.153-1.107-1.46-1.107-1.46c-.906-.622.068-.61.068-.61c1.002.07 1.53.993 1.53.993c.89 1.528 2.341 1.088 2.91.834c.091-.646.349-1.088.632-1.337c-2.222-.252-4.555-1.111-4.555-4.943c0-1.091.39-1.984 1.03-2.682c-.103-.252-.447-1.27.098-2.648c0 0 .84-.269 2.753 1.025c.797-.223 1.65-.335 2.503-.339c.85.004 1.703.116 2.503.339c1.912-1.294 2.752-1.025 2.752-1.025c.545 1.378.201 2.396.098 2.648c.64.698 1.03 1.59 1.03 2.682c0 3.839-2.336 4.686-4.564 4.935c.359.31.677.925.677 1.872c0 1.346-.012 2.434-.012 2.766c0 .248.181.545.657.452c3.97-1.343 6.834-5.093 6.834-9.51A10.007 10.007 0 0 0 12 2z"/></svg>
+                    JoaquinSMV
+                </a>
+            </div>
+        </header>
+
+        <!-- CUERPO PRINCIPAL (EXPERIENCIA, FORMACIÓN Y HABILIDADES) -->
+        <main class="p-6 sm:p-10 grid grid-cols-1 lg:grid-cols-3 gap-8">
+            
+            <!-- COLUMNA IZQUIERDA (EXPERIENCIA & FORMACIÓN) -->
+            <div class="lg:col-span-2 space-y-8">
+                
+                <!-- Experiencia Profesional -->
+                <div>
+                    <h3 class="section-title-line">Experiencia Profesional</h3>
+                    
+                    <!-- Puesto 1 -->
+                    <div class="mb-6 p-4 rounded-lg data-card">
+                        <div class="flex justify-between items-start mb-1">
+                            <h4 class="text-lg font-bold text-white/90">Desarrollador Backend - Dislasa</h4>
+                            <span class="text-xs font-medium px-2 py-0.5 rounded tag">Veranos 2023-2025</span>
+                        </div>
+                        <p class="text-sm text-matrix-green/70 mb-2">Punta Umbría (Huelva)</p>
+                        <ul class="list-disc ml-5 text-sm text-white/80 space-y-1">
+                            <li>Apoyo en el desarrollo de pequeñas funcionalidades internas usando <span class="text-matrix-green">Java o C#</span>.</li>
+                            <li>Colaboración en tareas sencillas de integración con bases de datos <span class="text-matrix-green">SQL</span>.</li>
+                            <li>Participación activa en la documentación de procesos internos y flujos de trabajo técnicos.</li>
+                        </ul>
+                    </div>
+
+                    <!-- Puesto 2 -->
+                    <div class="mb-6 p-4 rounded-lg data-card">
+                        <div class="flex justify-between items-start mb-1">
+                            <h4 class="text-lg font-bold text-white/90">Prácticas - Delegación Territorial de Salud y Familias</h4>
+                            <span class="text-xs font-medium px-2 py-0.5 rounded tag">2023-2024 (543h)</span>
+                        </div>
+                        <p class="text-sm text-matrix-green/70 mb-2">Huelva</p>
+                        <ul class="list-disc ml-5 text-sm text-white/80 space-y-1">
+                            <li>Soporte informático y gestión técnica interna.</li>
+                            <li>Tareas administrativas digitales.</li>
+                        </ul>
+                    </div>
+                    
+                    <!-- Puesto 3 (Web + Retail) -->
+                    <div class="p-4 rounded-lg data-card">
+                        <div class="flex justify-between items-start mb-1">
+                            <h4 class="text-lg font-bold text-white/90">Prácticas - Mookase (Retail + Desarrollo Web)</h4>
+                            <span class="text-xs font-medium px-2 py-0.5 rounded tag">2024-2025 (1.5 meses)</span>
+                        </div>
+                        <p class="text-sm text-matrix-green/70 mb-2">Huelva centro</p>
+                        <ul class="list-disc ml-5 text-sm text-white/80 space-y-1">
+                            <li>Desarrollo de una página web junto a un compañero.</li>
+                            <li>Resolución de problemas y mejora de la plataforma.</li>
+                            <li>Atención al cliente y apoyo en tienda (habilidades blandas).</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <!-- Formación Académica -->
+                <div>
+                    <h3 class="section-title-line">Formación Académica</h3>
+                    <div class="mb-4 p-4 rounded-lg data-card">
+                        <div class="flex justify-between items-start mb-1">
+                            <h4 class="text-lg font-bold text-white/90">Grado Superior en Desarrollo de Aplicaciones Multiplataforma (DAM)</h4>
+                            <span class="text-xs font-medium px-2 py-0.5 rounded tag">2025-2026 (En Curso)</span>
+                        </div>
+                        <p class="text-sm text-matrix-green/70 mb-2">IES La Marisma | Huelva</p>
+                        <p class="text-sm text-white/80 mt-3 font-semibold">Proyecto Destacado:</p>
+                        <p class="text-sm text-matrix-green/80">
+                            Cartelera de cine (login, registro, base de datos, gestión de butacas, validaciones, excepciones).
+                        </p>
+                        <a href="https://github.com/JoaquinSMV/ProyectoT3 Joaquin.git" target="_blank" class="text-xs hover:text-white transition mt-1 block">
+                            > Ver Proyecto en GitHub
+                        </a>
+                    </div>
+                </div>
+
+            </div>
+
+            <!-- COLUMNA DERECHA (HABILIDADES, IDIOMAS, OTROS DATOS) -->
+            <div class="lg:col-span-1 space-y-8">
+
+                <!-- Habilidades Técnicas -->
+                <div>
+                    <h3 class="section-title-line text-lg">Habilidades Técnicas</h3>
+                    <div class="space-y-4 text-sm">
+                        <!-- Lenguajes -->
+                        <div class="p-4 rounded-lg bg-black/50 border border-matrix-green/30">
+                            <p class="font-bold mb-2 text-matrix-green">/ LENGUAJES</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-full text-xs font-medium tag">Java</span>
+                                <span class="px-3 py-1 rounded-full text-xs font-medium tag">C#</span>
+                                <span class="px-3 py-1 rounded-full text-xs font-medium tag">Kotlin</span>
+                                <span class="px-3 py-1 rounded-full text-xs font-medium tag">Python (Básico)</span>
+                            </div>
+                        </div>
+                        
+                        <!-- Desarrollo -->
+                        <div class="p-4 rounded-lg bg-black/50 border border-matrix-green/30">
+                            <p class="font-bold mb-2 text-matrix-green">/ CONCEPTOS</p>
+                            <ul class="list-none space-y-1 text-white/80">
+                                <li>> SQL / Bases de Datos</li>
+                                <li>> Gestión de hilos</li>
+                                <li>> Patrones y Buenas Prácticas</li>
+                                <li>> Desarrollo Web (Fundamentos)</li>
+                                <li>> Gestión empresarial (Odoo)</li>
+                            </ul>
+                        </div>
+                        
+                        <!-- Herramientas -->
+                        <div class="p-4 rounded-lg bg-black/50 border border-matrix-green/30">
+                            <p class="font-bold mb-2 text-matrix-green">/ HERRAMIENTAS</p>
+                            <div class="flex flex-wrap gap-2">
+                                <span class="px-3 py-1 rounded-full text-xs font-medium tag">Git (Control de Versiones)</span>
+                                <span class="px-3 py-1 rounded-full text-xs font-medium tag">Docker Desktop (Prácticas)</span>
+                                <span class="px-3 py-1 rounded-full text-xs font-medium tag">IntelliJ IDEA</span>
+                                <span class="px-3 py-1 rounded-full text-xs font-medium tag">Visual Studio Code</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Habilidades Blandas / Otros Datos -->
+                <div>
+                    <h3 class="section-title-line text-lg">Habilidades Blandas</h3>
+                    <ul class="list-none space-y-1 text-matrix-green text-sm p-4 rounded-lg bg-black/50 border border-matrix-green/30">
+                        <li><span class="text-white font-bold pr-1">//</span> Trabajo en Equipo</li>
+                        <li><span class="text-white font-bold pr-1">//</span> Aprendizaje Rápido (Autodidacta)</li>
+                        <li><span class="text-white font-bold pr-1">//</span> Buena Comunicación (Atención al cliente)</li>
+                        <li><span class="text-white font-bold pr-1">//</span> Actitud Proactiva y Energética</li>
+                    </ul>
+                </div>
+                
+                <!-- Idiomas y Otros -->
+                <div>
+                    <h3 class="section-title-line text-lg">Otros Datos</h3>
+                    <div class="space-y-3 text-sm p-4 rounded-lg bg-black/50 border border-matrix-green/30 text-white/80">
+                        <p><span class="font-bold text-matrix-green">I18N:</span> Inglés: A2 (En estudio para B1)</p>
+                        <p><span class="font-bold text-matrix-green">MOV:</span> Completa, con Carnet de conducir + vehículo propio.</p>
+                        <p><span class="font-bold text-matrix-green">AVAIL:</span> Horaria completa (ideal para FCT).</p>
+                    </div>
+                </div>
+
+            </div>
+        </main>
+        
+        <!-- FOOTER / LLAMADA A LA ACCIÓN -->
+        <footer class="p-6 sm:p-8 bg-black text-center border-t border-primary-color">
+            <h3 class="text-2xl font-bold mb-3 text-matrix-green text-shadow-matrix-green">_OBJETIVO_PROFESIONAL_</h3>
+            <p class="text-white/80 max-w-2xl mx-auto">
+                > Realizar mis prácticas FCT en una empresa donde pueda aprender, mejorar como programador y aportar desde el primer día.
+                Mi preferencia es el <span class="text-matrix-green">desarrollo backend</span>, y estoy abierto a cualquier área donde pueda crecer profesionalmente.
+            </p>
+        </footer>
+
+    </div>
+
+    <!-- Script de Animación Matrix (JavaScript) -->
+    <script>
+        window.onload = function () {
+            const canvas = document.getElementById('matrixCanvas');
+            const ctx = canvas.getContext('2d');
+            
+            // Ajustar el tamaño del canvas al de la ventana
+            let w = canvas.width = window.innerWidth;
+            let h = canvas.height = window.innerHeight;
+            
+            // Función para reajustar el canvas si se cambia el tamaño de la ventana
+            window.onresize = function() {
+                w = canvas.width = window.innerWidth;
+                h = canvas.height = window.innerHeight;
+                ctx.fillStyle = "#000000";
+                ctx.fillRect(0, 0, w, h);
+                yPos = Array(300).fill(0); // Reiniciar las posiciones Y
+            };
+
+            // Los caracteres a usar
+            const p = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ!@#$%^&*()_+-=~`<>,.?/|";
+            // Longitud de los caracteres
+            const matrixCode = p.split('');
+            const font_size = 18;
+            // Calcular el número de columnas (ajustar el 0.65 para una densidad óptima)
+            const columns = Math.floor(w / font_size);
+            
+            // Un array para almacenar la posición 'y' de cada columna
+            let yPos = Array(columns).fill(0);
+
+            // Relleno inicial del canvas
+            ctx.fillStyle = "#000000";
+            ctx.fillRect(0, 0, w, h);
+            
+            // La función de dibujo principal
+            function drawMatrix() {
+                // Dibujar un rectángulo semitransparente oscuro sobre el canvas para el efecto de desvanecimiento
+                // Esto crea el rastro de las gotas
+                ctx.fillStyle = "rgba(0, 0, 0, 0.05)";
+                ctx.fillRect(0, 0, w, h);
+
+                // Estilo del texto
+                ctx.fillStyle = "#00ff41"; // Verde Matrix
+                ctx.font = font_size + "px Roboto Mono";
+
+                // Iterar sobre cada columna
+                for (let i = 0; i < columns; i++) {
+                    // Seleccionar un caracter aleatorio
+                    const text = matrixCode[Math.floor(Math.random() * matrixCode.length)];
+                    
+                    // Coordenadas X e Y
+                    const x = i * font_size;
+                    let y = yPos[i];
+
+                    // Dibujar el caracter
+                    ctx.fillText(text, x, y);
+
+                    // Aumentar la posición Y para la siguiente gota en esta columna
+                    // Si la gota cae fuera de la pantalla O (con una pequeña probabilidad)
+                    // Reiniciar la gota a la parte superior (y=0)
+                    if (y > h + Math.random() * 10000 || Math.random() > 0.999) {
+                        yPos[i] = 0;
+                    } else {
+                        yPos[i] = y + font_size;
+                    }
+                }
+            }
+            
+            // Función de animación con temporizador
+            let interval = 40; // Velocidad de la animación (en milisegundos)
+            setInterval(drawMatrix, interval);
+        }
+    </script>
+</body>
+</html>
